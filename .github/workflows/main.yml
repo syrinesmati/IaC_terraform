@@ -1,0 +1,39 @@
+name: Terraform CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupère le code source
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Installe Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      # 3. Installe Docker (déjà présent sur ubuntu-latest)
+      - name: Verify Docker
+        run: docker --version
+
+      # 4. Initialisation — télécharge le provider Docker
+      - name: Terraform Init
+        run: terraform init
+
+      # 5. Planification — simule et valide les changements
+      - name: Terraform Plan
+        run: terraform plan
+
+      # 6. Application — déploie uniquement si Plan a réussi
+      - name: Terraform Apply
+        if: success()
+        run: terraform apply -auto-approve
