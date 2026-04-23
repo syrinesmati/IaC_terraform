@@ -33,7 +33,11 @@ resource "docker_container" "db_container" {
 
 # --- Application Web Nginx ---
 resource "docker_image" "app_image" {
-  name         = "tp-web-app:latest"
+  name = "tp-web-app:latest"
+  build {
+    context    = "."
+    dockerfile = "Dockerfile_app"
+  }
   keep_locally = true
 }
 
