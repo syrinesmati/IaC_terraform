@@ -1,0 +1,25 @@
+# --- Variables Base de Données ---
+variable "db_name" {
+  description = "Nom de la base de données PostgreSQL."
+  type        = string
+  default     = "devops_db"
+}
+
+variable "db_user" {
+  description = "Nom d'utilisateur PostgreSQL."
+  type        = string
+  default     = "devops_user"
+}
+
+variable "db_password" {
+  description = "Mot de passe PostgreSQL."
+  type        = string
+  default     = "strongpassword123"
+}
+
+# --- Variables Application ---
+variable "app_port_external" {
+  description = "Port externe pour accéder à l'application web."
+  type        = number
+  default     = 8080
+}
